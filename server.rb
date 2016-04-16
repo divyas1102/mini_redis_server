@@ -37,7 +37,7 @@ class Server
                   key = command_details[1] ? command_details[1] : 'Missing key'
                   response = Dataset.increment(key)
                 else
-                  client.puts "UNKNOWN COMMAND"
+                  response = "UNKNOWN COMMAND"
               end
               client.puts response
             end
