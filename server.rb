@@ -8,7 +8,7 @@ class Server
   #command_type {SET, GET, DBSIZE}
 
   def self.run
-    server = TCPServer.open(5555)
+    server = TCPServer.open(5555) #make port number customizable
     puts 'Server started on port 5555'
     loop {
       begin
@@ -24,8 +24,6 @@ class Server
                 when "SET" #change_this to use enum
                   key = command_details[1] ? command_details[1] : 'Missing key'
                   value = command_details[2] ? command_details[2] : 'Missing value'
-                  puts key
-                  puts value
                   response = Dataset.set_values(key, value)
                 when "GET"
                   key = command_details[1] ? command_details[1] : 'Missing key'
