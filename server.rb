@@ -37,9 +37,9 @@ class Server
                   key = command_details[1] ? command_details[1] : 'Missing key'
                   response = Dataset.increment(key)
                 when "ZADD"
-                  key = command_details[1]
-                  score = command_details[2]
-                  member = command_details[3]
+                  key = command_details[1] ? command_details[1] : 'Missing key'
+                  score = command_details[2] ? command_details[2] : 'Missing score'
+                  member = command_details[3] ? command_details[3] : 'Missing member'
                   response = Sortedset.add_value(key, score, member)
                 else
                   response = "UNKNOWN COMMAND"
