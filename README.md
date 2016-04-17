@@ -48,3 +48,12 @@ telnet localhost 5555
 SET 1 "abc" \n
 GET 1 \n
 DBSIZE \n
+
+#####UPDATES: 04/17#####
+Goal for next hour:
+- identify and implement appropriate data structure for redis-like sorted set storage
+- implement atleast 2 of the Z commands
+- fix issue with requiring '\n' for the input
+- think about handling multithreading and effective concurrent & parallel access to data
+ - do we need locks to protect integrity of data?
+ - if we use mutex, how will deadlock be handled?
