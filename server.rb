@@ -73,6 +73,11 @@ class Server
         key = command_details[1] ? command_details[1] : 'Missing key'
         response = Sortedset.get_cardinality(key)
 
+      when "ZRANK"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        member = command_details[2] ? command_details[2] : 'Missing member'
+
+        response = Sortedset.get_rank(key, member)
       else
         response = "UNKNOWN COMMAND"
     end

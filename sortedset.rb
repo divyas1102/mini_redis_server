@@ -24,4 +24,17 @@ class Sortedset
   def self.get_cardinality(key) # number of elements in the sorted set stored at key
     @my_z_set[key].length
   end
+
+  def self.get_rank(key, member)
+    if @my_z_set.include?(key)
+      @my_z_set[key].each_with_index do |rank, index|
+        if rank.member == member
+          return index
+        end
+      end
+      'MEMBER NOT FOUND'
+    else
+      'KEY NOT FOUND'
+    end
+  end
 end
