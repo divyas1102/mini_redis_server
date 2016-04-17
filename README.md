@@ -40,20 +40,19 @@ Future enhancements:
 - add tests
 - clean up command interface
 - add more error messages and rescues
-- FIX \n issue with retrieving values
 
 Example usage:
 
 telnet localhost 5555
-SET 1 "abc" \n
-GET 1 \n
-DBSIZE \n
+SET 1 "abc"
+GET 1
+DBSIZE
 
 #####UPDATES: 04/17#####
 Goal for next hour:
-- identify and implement appropriate data structure for redis-like sorted set storage
-- implement atleast 2 of the Z commands
-- fix issue with requiring '\n' for the input
+- identify and implement appropriate data structure for redis-like sorted set storage - done
+- implement atleast 2 of the Z commands - done
+- fix issue with requiring '\n' for the input - done
 - think about handling multithreading and effective concurrent & parallel access to data
  - do we need locks to protect integrity of data?
  - if we use mutex, how will deadlock be handled?

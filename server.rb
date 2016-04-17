@@ -17,9 +17,8 @@ class Server
           client.puts('Connected at: ' + Time.now.ctime)
           client.puts('Accepting commands now')
           while(client)
-            if command = client.gets('\n')
+            if command = client.gets
               command_details = command.split(' ')
-              command_details.delete('\n')
 
               case command_details[0] 
                 when "SET" #change_this to use enum
