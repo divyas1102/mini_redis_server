@@ -61,3 +61,4 @@ Goal for next hour:
 Assumptions:
 - score is an integer
 - response from zadd is just the number of records/unique keys added
+- current implementation only requires ability to zadd one member at a time to one key
