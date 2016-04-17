@@ -69,3 +69,7 @@ ZADD "a" 1 "one" => 1
 ZCARD "a" => 1
 ZADD "a" 2 "two" => 1 
 ZCARD "a" => 2
+
+At the end of 1 hour, possible updates:
+Adding tests for client and server
+write tests for rank, dataset and sortedset classes
