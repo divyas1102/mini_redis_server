@@ -15,38 +15,11 @@ class Server
       begin
         Thread.start(server.accept) do |client|
           client.puts('Connected at: ' + Time.now.ctime)
-          client.puts('Accepting commands now')
+          client.puts('Server is accepting commands now')
           while(client)
             if command = client.gets
               command_details = command.split(' ')
-
-              case command_details[0] 
-                when "SET" #change_this to use enum
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  value = command_details[2] ? command_details[2] : 'Missing value'
-                  response = Dataset.set_values(key, value)
-                when "GET"
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  response = Dataset.get_value(key)
-                when "DBSIZE"
-                  response = Dataset.get_dbsize
-                when "DEL"
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  response = Dataset.delete
-                when "INCR"
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  response = Dataset.increment(key)
-                when "ZADD"
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  score = command_details[2] ? command_details[2] : 'Missing score'
-                  member = command_details[3] ? command_details[3] : 'Missing member'
-                  response = Sortedset.add_value(key, score, member)
-                when "ZCARD"
-                  key = command_details[1] ? command_details[1] : 'Missing key'
-                  response = Sortedset.get_cardinality(key)
-                else
-                  response = "UNKNOWN COMMAND"
-              end
+              response = process_commands(command_details)
               client.puts response
             end
           end
@@ -57,6 +30,53 @@ class Server
         client.close unless !client
       end
     }
+  end
+
+  def self.process_commands(command_details)
+    response = ''
+    case command_details[0]
+      when "SET" #change_this to use enum
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        value = command_details[2] ? command_details[2] : 'Missing value'
+        mutex = Mutex.new
+        mutex.synchronize do
+         response = Dataset.set_values(key, value)
+        end
+
+      when "GET"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        response = Dataset.get_value(key)
+
+      when "DBSIZE"
+        response = Dataset.get_dbsize
+
+      when "DEL"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        mutex.synchronize do
+          response = Dataset.delete
+        end
+
+      when "INCR"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        response = Dataset.increment(key)
+
+      when "ZADD"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        score = command_details[2] ? command_details[2] : 'Missing score'
+        member = command_details[3] ? command_details[3] : 'Missing member'
+        mutex = Mutex.new
+        mutex.synchronize do
+          response = Sortedset.add_value(key, score, member)
+        end
+
+      when "ZCARD"
+        key = command_details[1] ? command_details[1] : 'Missing key'
+        response = Sortedset.get_cardinality(key)
+
+      else
+        response = "UNKNOWN COMMAND"
+    end
+    return response
   end
 end
 #
