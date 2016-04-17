@@ -73,3 +73,15 @@ ZCARD "a" => 2
 At the end of 1 hour, possible updates:
 Adding tests for client and server
 write tests for rank, dataset and sortedset classes
+
+TO RUN SERVER: (defualts to port 5555)
+ruby server.rb
+
+TO START CLIENT:
+telnet localhost 5555
+
+GET and SET methods:
+![alt text](https://github.com/divyas1102/mini_redis_server/blob/master/resources/Screen%20Shot%202016-04-17%20at%204.50.42%20PM.png "get and set")
+
+ZADD, ZCARD and ZRANK methods:
+![alt text](https://github.com/divyas1102/mini_redis_server/blob/master/resources/Screen%20Shot%202016-04-17%20at%204.52.20%20PM.png "z methods")
