@@ -18,6 +18,6 @@ class Sortedset
     rescue => e
       e.inspect
     end
-    count
+    count #returns number of rows updated. current implementation will only allow one.
   end
 end

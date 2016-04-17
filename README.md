@@ -57,3 +57,7 @@ Goal for next hour:
 - think about handling multithreading and effective concurrent & parallel access to data
  - do we need locks to protect integrity of data?
  - if we use mutex, how will deadlock be handled?
+
+Assumptions:
+- score is an integer
+- response from zadd is just the number of records/unique keys added
