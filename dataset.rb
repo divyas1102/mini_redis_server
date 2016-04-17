@@ -1,17 +1,18 @@
 class Dataset
-  @my_data = {}
+  @my_data = Hash.new
 
   def self.set_values(key, value)
+    @my_data.inspect
     begin
       @my_data[key] = value
       'OK'
-    rescue
-      puts 'ERROR'
+    rescue => e
+      'ERROR' + e.inspect
     end
   end
 
   def self.get_value(key)
-    @my_data[key]
+    @my_data.include?(key) ? @my_data[key] : 'KEY NOT FOUND'
   end
 
   def self.get_dbsize
@@ -19,12 +20,15 @@ class Dataset
   end
 
   def self.delete(key)
-    @my_data.delete(key)
-    @my_data
+    begin
+      @my_data.delete(key)
+      'DELETED'
+    rescue => e
+      'ERROR' + e.inspect
+    end
   end
 
   def self.increment(key)
-    @my_data[key] = @my_data[key].to_i + 1
-    @my_data[key]
+    @my_data.include?(key) ? @my_data[key].to_i + 1 : 'KEY NOT FOUND'
   end
 end
