@@ -62,3 +62,11 @@ Assumptions:
 - score is an integer
 - response from zadd is just the number of records/unique keys added
 - current implementation only requires ability to zadd one member at a time to one key
+
+Execution:
+ruby server.rb - starts the server
+telnet localhost 5555 - starts the client connection to server
+ZADD "a" 1 "one" => 1 
+ZCARD "a" => 1
+ZADD "a" 2 "two" => 1 
+ZCARD "a" => 2

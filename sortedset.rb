@@ -20,4 +20,8 @@ class Sortedset
     end
     count #returns number of rows updated. current implementation will only allow one.
   end
+
+  def self.get_cardinality(key) # number of elements in the sorted set stored at key
+    @my_z_set[key].length
+  end
 end

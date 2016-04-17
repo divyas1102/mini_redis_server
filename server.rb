@@ -1,6 +1,7 @@
 require 'socket'
 require 'thread'
 require_relative 'dataset'
+require_relative 'sortedset'
 
 class Server
 
@@ -41,6 +42,9 @@ class Server
                   score = command_details[2] ? command_details[2] : 'Missing score'
                   member = command_details[3] ? command_details[3] : 'Missing member'
                   response = Sortedset.add_value(key, score, member)
+                when "ZCARD"
+                  key = command_details[1] ? command_details[1] : 'Missing key'
+                  response = Sortedset.get_cardinality(key)
                 else
                   response = "UNKNOWN COMMAND"
               end
