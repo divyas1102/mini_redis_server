@@ -52,6 +52,7 @@ class Server
 
       when "DEL"
         key = command_details[1] ? command_details[1] : 'Missing key'
+        mutex = Mutex.new
         mutex.synchronize do
           response = Dataset.delete
         end
