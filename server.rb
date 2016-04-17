@@ -36,6 +36,11 @@ class Server
                 when "INCR"
                   key = command_details[1] ? command_details[1] : 'Missing key'
                   response = Dataset.increment(key)
+                when "ZADD"
+                  key = command_details[1]
+                  score = command_details[2]
+                  member = command_details[3]
+                  response = Sortedset.add_value(key, score, member)
                 else
                   response = "UNKNOWN COMMAND"
               end
