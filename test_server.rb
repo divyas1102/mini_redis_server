@@ -1,0 +1,1 @@
+exec("ruby server.rb")
